@@ -1,6 +1,52 @@
-(ns err.core)
+(ns err.core
+  (:require [cats.builtin]
+            [cats.core :refer [alet]]
+            [cats.monad.either :as ei]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(def fail ei/left)
+(def ok ei/right)
+
+(defn value [arg]
+  (if (ei/either? arg) @arg arg))
+
+(defn fail-nil [message arg]
+  (let [v (value arg)]
+    (if v (ok v) (fail message))))
+
+(defn fail-empty [message arg]
+  (let [v (value arg)]
+    (if (empty? v) (fail message) (ok v))))
+
+(defn fail-zero [message arg]
+  (let [v (value arg)]
+    (if (= 0 v) (fail message) (ok v))))
+
+(defn fail-ex [f & args]
+  (try (apply f args)
+       (catch Exception e (fail (.getMessage e)))))
+
+(def failed? ei/left?)
+
+(defn failed-arg [args]
+  (first (filter failed? args)))
+
+(defn either [f & args]
+  (if-let [x (failed-arg args)] x (apply f (map value args))))
+
+(defmacro either->> [val & fns]
+  (let [fns (for [f fns] `(maybe ~f))]
+    `(->> ~val ~@fns)))
+
+(defmacro either-let
+  ([bindings return] `(alet ~bindings ~return))
+  ([bindings return fallback]
+   `(let [result# (alet ~bindings ~return)]
+     (if (failed? result#) ~fallback result#))))
+
+(defn serialize [data]
+  (if (failed? data)
+    {:status 400 :result "error" :cause @data}
+    data))
+
+(defn wrap-err [handler]
+  (fn [req] (handler (serialize req))))
