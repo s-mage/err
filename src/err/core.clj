@@ -34,7 +34,7 @@
   (if-let [x (failed-arg args)] x (apply f (map value args))))
 
 (defmacro either->> [val & fns]
-  (let [fns (for [f fns] `(maybe ~f))]
+  (let [fns (for [f fns] `(either ~f))]
     `(->> ~val ~@fns)))
 
 (defmacro either-let
