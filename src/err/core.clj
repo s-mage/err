@@ -42,11 +42,3 @@
   ([bindings return fallback]
    `(let [result# (alet ~bindings ~return)]
      (if (failed? result#) ~fallback result#))))
-
-(defn serialize [data]
-  (if (failed? data)
-    {:status 400 :result "error" :cause @data}
-    data))
-
-(defn wrap-err [handler]
-  (fn [req] (handler (serialize req))))
