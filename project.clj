@@ -1,4 +1,4 @@
-(defproject err "0.1.0"
+(defproject err "0.1.1"
   :description "Error handling based on cats library"
   :url "https://github.com/s-mage/err"
   :license {:name "Eclipse Public License"
