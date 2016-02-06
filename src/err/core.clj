@@ -23,7 +23,10 @@
 
 (defn fail-ex [f & args]
   (try (apply f args)
-       (catch Exception e (fail (.getMessage e)))))
+       (catch Exception e (fail (.toString e)))))
+
+(defmacro fail-ex! [& body]
+  `(try ~@body (catch Exception e# (fail (.toString e#)))))
 
 (def failed? ei/left?)
 

@@ -10,6 +10,19 @@
   (is (= (fail "pew") (either #(+ 3 %) (fail "pew")))
       "Should fail if arg failed"))
 
+(deftest fail-ex-test
+  (testing "regular"
+     (is (= 1 (fail-ex / 1 1))))
+  (testing "fail"
+    (is (= (fail "java.lang.ArithmeticException: Divide by zero")))))
+
+(deftest fail-ex-macro-test
+  (testing "regular"
+    (is (= 1 (fail-ex! (/ 1 1)))))
+  (testing "fail"
+    (is (= (fail "java.lang.ArithmeticException: Divide by zero")
+           (fail-ex! (/ 1 0))))))
+
 (deftest simple-error-type
   (is (= true (failed? (either #(+ 3 %) (fail "pew"))))
       "Should confirm that failed is failed"))
