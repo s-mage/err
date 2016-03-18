@@ -21,6 +21,9 @@
   (let [v (value arg)]
     (if (= 0 v) (fail message) (ok v))))
 
+(defn fail-false [message arg]
+  (if-not arg (fail message) (ok arg)))
+
 (defn fail-ex [f & args]
   (try (apply f args)
        (catch Exception e (fail (.toString e)))))
