@@ -49,9 +49,11 @@ Same in threading macro:
 
 Let analogue:
 
-    (either-let [a (ok 2) b (inc a)] (+ a b))        ; 3
+    (either-let [a (ok 2) b (ok (inc a))] (+ a b))        ; 5
     (either-let [a (ok 2) b (fail "eh")] (+ a b))    ; #<Left "eh">
     (either-let [a (ok 2) b (fail "eh")] (+ a b) 42) ; 42
+    
+Make sure all arguments in let are wrapped into `#<Right>` or `#<Left>` (or another `cats` entity).
 
 ## License
 
