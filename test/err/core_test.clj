@@ -14,7 +14,8 @@
   (testing "regular"
      (is (= 1 (fail-ex / 1 1))))
   (testing "fail"
-    (is (= (fail "java.lang.ArithmeticException: Divide by zero")))))
+    (is (= (fail "java.lang.ArithmeticException: Divide by zero")
+           (fail-ex / 1 0)))))
 
 (deftest fail-ex-macro-test
   (testing "regular"

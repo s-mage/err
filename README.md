@@ -1,10 +1,10 @@
 # err
 
-[TODO: irrelevant quote with word err]
+[TODO: irrelevant quote with the word err]
 
 err is a Clojure library for error handling.
 
-Motivation you can find [here](https://s-mage.github.io/2015/10/16/better-errors.html) 
+Motivation you can find [here](https://s-mage.github.io/2015/10/16/better-errors.html)
 and following links in the post, especially
 [this one](https://www.niwi.nz/2015/03/08/error-handling/).
 
@@ -49,10 +49,10 @@ Same in threading macro:
 
 Let analogue:
 
-    (either-let [a (ok 2) b (ok (inc a))] (+ a b))        ; 5
+    (either-let [a (ok 2) b (ok (inc a))] (+ a b))   ; 5
     (either-let [a (ok 2) b (fail "eh")] (+ a b))    ; #<Left "eh">
     (either-let [a (ok 2) b (fail "eh")] (+ a b) 42) ; 42
-    
+
 Make sure all arguments in let are wrapped into `#<Right>` or `#<Left>` (or another `cats` entity).
 
 ## License
