@@ -57,7 +57,7 @@ Make sure all arguments in let are wrapped into `#<Right>` or `#<Left>` (or anot
 
 ## License
 
-Copyright © 2016 Sergey Smagin
+Copyright © 2016-2019 Sergey Smagin
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
